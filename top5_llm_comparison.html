@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 5 AI LLM Comparison 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0f;
+    color: #e8e8f0;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px 56px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .header-left { flex: 1; min-width: 280px; }
+  .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7b6ef6;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #f0f0f8;
+    margin-bottom: 10px;
+  }
+  h1 span { color: #7b6ef6; }
+  .subtitle {
+    font-size: 14px;
+    color: #888898;
+    line-height: 1.6;
+    max-width: 440px;
+  }
+
+  /* ── SUMMARY PILLS ── */
+  .summary-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .stat-pill {
+    background: #14141f;
+    border: 0.5px solid #2a2a3a;
+    border-radius: 40px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .stat-pill .val { font-size: 14px; font-weight: 600; color: #f0f0f8; }
+  .stat-pill .lbl { font-size: 12px; color: #666678; }
+
+  /* ── FILTER BUTTONS ── */
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .fbtn {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 0.5px solid #2a2a3a;
+    background: transparent;
+    color: #888898;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .fbtn:hover { border-color: #444460; color: #c0c0d8; }
+  .fbtn.active { border-color: transparent; color: #fff; }
+  .fbtn[data-f="all"].active   { background: #2a2a3a; color: #f0f0f8; }
+  .fbtn[data-f="OpenAI"].active    { background: #1a4a80; }
+  .fbtn[data-f="Anthropic"].active { background: #3d3490; }
+  .fbtn[data-f="Google"].active    { background: #2a5010; }
+  .fbtn[data-f="Meta"].active      { background: #6a3a08; }
+  .fbtn[data-f="Perplexity"].active{ background: #0a5a42; }
+
+  /* ── TABLE ── */
+  .tbl-outer { overflow-x: auto; border-radius: 12px; border: 0.5px solid #2a2a3a; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 760px;
+  }
+  thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #555568;
+    border-bottom: 0.5px solid #2a2a3a;
+    background: #0e0e18;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #18181f;
+    vertical-align: middle;
+    line-height: 1.45;
+    color: #c8c8d8;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #12121c; }
+  tbody tr.hidden { display: none; }
+
+  /* brand pill */
+  .brand {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 10px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .b-OpenAI    { background: #0d2e52; color: #5baee8; border: 0.5px solid #1a4a80; }
+  .b-Anthropic { background: #231b5a; color: #a89cf8; border: 0.5px solid #3d3490; }
+  .b-Google    { background: #142810; color: #7ac44e; border: 0.5px solid #2a5010; }
+  .b-Meta      { background: #381e04; color: #e8a04a; border: 0.5px solid #6a3a08; }
+  .b-Perplexity{ background: #062e22; color: #3ecfa0; border: 0.5px solid #0a5a42; }
+
+  .model-name { font-weight: 500; color: #e0e0ee; font-size: 13px; }
+  .year-tag {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 6px; font-size: 11px; font-weight: 500;
+    background: #1a1a28; color: #888898; border: 0.5px solid #2a2a3a;
+    white-space: nowrap;
+  }
+  .hl { color: #8888a0; font-size: 12px; }
+
+  /* share bar */
+  .bar-wrap { display: flex; align-items: center; gap: 7px; }
+  .bar-track { height: 5px; border-radius: 3px; min-width: 2px; }
+  .bar-OpenAI    { background: #378add; }
+  .bar-Anthropic { background: #7b6ef6; }
+  .bar-Google    { background: #5bbc2a; }
+  .bar-Meta      { background: #e09030; }
+  .bar-Perplexity{ background: #1d9e75; }
+  .bar-val { font-size: 11px; color: #666678; white-space: nowrap; }
+
+  .u-num { font-size: 12px; font-weight: 600; color: #e0e0ee; }
+  .u-sub { font-size: 10px; color: #555568; display: block; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 0.5px solid #1e1e2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-left { font-size: 11px; color: #444458; line-height: 1.8; }
+  .footer-left strong { color: #666678; }
+  .footer-right {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #7b6ef6;
+  }
+
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #555568; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <p class="eyebrow">AI landscape · June 2026</p>
+      <h1>Top 5 <span>AI LLMs</span><br>Compared</h1>
+      <p class="subtitle">Every major model across OpenAI, Anthropic, Google, Meta & Perplexity — with release dates, highlights, market share and active users.</p>
+    </div>
+  </div>
+
+  <!-- Summary pills -->
+  <div class="summary-row">
+    <div class="stat-pill">
+      <div class="dot" style="background:#378add;"></div>
+      <span class="val">930M</span><span class="lbl">ChatGPT WAU</span>
+    </div>
+    <div class="stat-pill">
+      <div class="dot" style="background:#5bbc2a;"></div>
+      <span class="val">750M</span><span class="lbl">Gemini MAU</span>
+    </div>
+    <div class="stat-pill">
+      <div class="dot" style="background:#7b6ef6;"></div>
+      <span class="val">~33M</span><span class="lbl">Claude MAU</span>
+    </div>
+    <div class="stat-pill">
+      <div class="dot" style="background:#1d9e75;"></div>
+      <span class="val">~45M</span><span class="lbl">Perplexity MAU</span>
+    </div>
+    <div class="stat-pill">
+      <div class="dot" style="background:#888898;"></div>
+      <span class="val">39</span><span class="lbl">major models tracked</span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-row">
+    <button class="fbtn active" data-f="all">All providers</button>
+    <button class="fbtn" data-f="OpenAI">OpenAI</button>
+    <button class="fbtn" data-f="Anthropic">Anthropic</button>
+    <button class="fbtn" data-f="Google">Google</button>
+    <button class="fbtn" data-f="Meta">Meta</button>
+    <button class="fbtn" data-f="Perplexity">Perplexity</button>
+  </div>
+
+  <!-- Table -->
+  <div class="tbl-outer">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:12%">Provider</th>
+          <th style="width:22%">Model</th>
+          <th style="width:10%">Released</th>
+          <th style="width:28%">Highlights</th>
+          <th style="width:14%">Web traffic share</th>
+          <th style="width:14%">Active users</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Legend + footer -->
+  <div style="margin-top:16px;">
+    <div class="legend">
+      <span class="leg-item"><span class="leg-dot" style="background:#378add;"></span>OpenAI</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#7b6ef6;"></span>Anthropic</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#5bbc2a;"></span>Google</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#e09030;"></span>Meta</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#1d9e75;"></span>Perplexity</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <strong>Sources:</strong> Similarweb · Momentic · Sensor Tower · DemandSage · Wikipedia · Google AI Docs · Anthropic · Meta AI · OpenAI<br>
+      Web traffic share: Momentic / Similarweb, Apr 2026 &nbsp;·&nbsp; Active users: third-party estimates, mid-2026<br>
+      <strong>Note:</strong> Meta Llama is open-weight (self-hosted); chatbot traffic metrics do not apply. Data is for informational purposes only.
+    </div>
+    <div class="footer-right">AI LLM Comparison · June 2026</div>
+  </div>
+
+</div>
+
+<script>
+const rows = [
+  { llm:'OpenAI', model:'GPT-1', year:'Jun 2018', hl:'First GPT; 117M params; proof of concept for generative pre-training', share:'54.7%', sw:54.7, users:'930M WAU', usub:'(ChatGPT, Feb 2026)' },
+  { llm:'OpenAI', model:'GPT-2', year:'Feb 2019', hl:'1.5B params; withheld initially over misuse risk; zero-shot generation', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-3', year:'Jun 2020', hl:'175B params; few-shot learning milestone; OpenAI API launched publicly', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-3.5 / ChatGPT', year:'Nov 2022', hl:'ChatGPT launch; 100M users in 2 months; ignited the modern LLM era', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-4', year:'Mar 2023', hl:'Multimodal; major reasoning leap; scored top 10% on bar exam', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-4o', year:'May 2024', hl:'Omni model; native voice + vision + text; free-tier access', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-4.5', year:'Feb 2025', hl:'Largest GPT-4 era model; 37% lower hallucination rate vs GPT-4', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-4.1 / mini / nano', year:'Apr 2025', hl:'Three-tier API family; optimised for long-context coding & agents', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-5', year:'Aug 2025', hl:'Flagship; configurable reasoning; 1M+ token context; multimodal', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-5.1', year:'Nov 2025', hl:'5 variants; customisable personalities; "warmer" default tone', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-5.2', year:'Dec 2025', hl:'Instant / Thinking / Pro modes; GPT-5.2-Codex coding variant', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-5.4', year:'Mar 2026', hl:'Unified general + coding flagship; native computer use added', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'OpenAI', model:'GPT-5.5', year:'May 2026', hl:'Latest frontier; supersedes 5.4; available via ChatGPT & API', share:'54.7%', sw:54.7, users:'930M WAU', usub:'' },
+  { llm:'Anthropic', model:'Claude 1', year:'Mar 2023', hl:'Safety-first; Constitutional AI training; alternative to GPT-4', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'(May 2026 est.)' },
+  { llm:'Anthropic', model:'Claude 2', year:'Jul 2023', hl:'100K context window; improved instruction-following', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude 3 (Haiku/Sonnet/Opus)', year:'Mar 2024', hl:'First family to beat GPT-4 on major leaderboards; 3-tier pricing', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude 3.5 Sonnet', year:'Jun 2024', hl:'Set SOTA bar for coding & agentic tasks; widely enterprise-adopted', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude 3.7 Sonnet', year:'Feb 2025', hl:'Hybrid reasoning; extended thinking mode for complex problems', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude 4 (Opus / Sonnet)', year:'May 2025', hl:'Advanced coding; enterprise reliability; groundbreaking performance', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude Opus 4.1 / Sonnet 4 (1M)', year:'Aug 2025', hl:'1M-token context window via API; 25B+ API calls/month', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Anthropic', model:'Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5', year:'2025–26', hl:'Current production lineup; industry-leading Terminal-Bench 2.0 score', share:'8.2%', sw:8.2, users:'~33M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 1 (Pro / Ultra / Nano)', year:'Dec 2023', hl:'Multimodal from the ground up; replaced Google Bard branding', share:'27.4%', sw:27.4, users:'750M MAU', usub:'(Jan 2026, Google)' },
+  { llm:'Google', model:'Gemini 1.5 Flash / Pro', year:'Feb 2024', hl:'1M+ token context; breakthrough long-document & video analysis', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 2 Flash / Pro', year:'Dec 2024', hl:'Faster inference; enhanced agentic task handling', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 2.5 Flash / Pro', year:'Early 2025', hl:'Top GPQA Diamond benchmark scores; strong multimodal reasoning', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 3 Flash / Deep Think', year:'Nov–Dec 2025', hl:'Default Gemini app model; Deep Think tier for advanced reasoning', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 3.1 Pro / Flash-Lite', year:'Feb–Mar 2026', hl:'94.3% GPQA Diamond; 2× reasoning leap over prior generation', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Google', model:'Gemini 3.5 Flash', year:'May 2026', hl:'Google I/O 2026; fastest agentic model; 4× faster output tokens', share:'27.4%', sw:27.4, users:'750M MAU', usub:'' },
+  { llm:'Meta', model:'Llama 1', year:'Feb 2023', hl:'7B–65B params; limited research access; sparked open-source AI wave', share:'N/A*', sw:0, users:'N/A', usub:'(open-weight, self-hosted)' },
+  { llm:'Meta', model:'Llama 2', year:'Jul 2023', hl:'First open-licensed Llama; 7B/13B/70B; commercial use allowed', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Meta', model:'Llama 3', year:'Apr 2024', hl:'8B & 70B; matched GPT-3.5 quality; major open-source milestone', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Meta', model:'Llama 3.1', year:'Jul 2024', hl:'Added 405B flagship; multilingual; first open model to rival GPT-4', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Meta', model:'Llama 3.2', year:'Oct 2024', hl:'First multimodal Llama; vision + text understanding native', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Meta', model:'Llama 3.3', year:'Dec 2024', hl:'70B optimised; stronger coding & instruction-following', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Meta', model:'Llama 4 Scout / Maverick', year:'Apr 2025', hl:'Early fusion multimodal; 30T training tokens; MoE architecture', share:'N/A*', sw:0, users:'N/A', usub:'' },
+  { llm:'Perplexity', model:'Sonar (Llama 3.1 base)', year:'Aug 2024', hl:'First Sonar gen; real-time web search + citations baked in', share:'1.5%', sw:1.5, users:'~45M MAU', usub:'(2025–26 est.)' },
+  { llm:'Perplexity', model:'Sonar / Sonar Pro', year:'Jan 2025', hl:'Built on Llama 3.3 70B; 128K ctx; 121 tok/s; inline citations', share:'1.5%', sw:1.5, users:'~45M MAU', usub:'' },
+  { llm:'Perplexity', model:'Sonar Reasoning / Reasoning Pro', year:'Early 2025', hl:'Chain-of-thought + live search; logic, math & multi-step tasks', share:'1.5%', sw:1.5, users:'~45M MAU', usub:'' },
+  { llm:'Perplexity', model:'Sonar Deep Research', year:'2025', hl:'Multi-step autonomous research; deep citation retrieval pipeline', share:'1.5%', sw:1.5, users:'~45M MAU', usub:'' },
+  { llm:'Perplexity', model:'Sonar Pro (2026) + Model Council', year:'2026', hl:'Async API; routes to GPT-5.5, Claude, Gemini, Grok for consensus', share:'1.5%', sw:1.5, users:'~45M MAU', usub:'' },
+];
+
+const MAX_BAR = 120;
+const MAX_SHARE = 60;
+
+function build(filter) {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  const seen = {};
+  rows.forEach(r => {
+    const show = filter === 'all' || r.llm === filter;
+    const isFirst = !seen[r.llm];
+    seen[r.llm] = true;
+    const bw = r.sw > 0 ? Math.max(4, Math.round((r.sw / MAX_SHARE) * MAX_BAR)) : 0;
+    const tr = document.createElement('tr');
+    if (!show) tr.className = 'hidden';
+
+    const brandCell = (isFirst && filter === 'all')
+      ? `<td style="vertical-align:top;padding-top:12px;"><span class="brand b-${r.llm}">${r.llm}</span></td>`
+      : `<td></td>`;
+
+    const barCell = r.sw > 0
+      ? `<div class="bar-wrap"><div class="bar-track bar-${r.llm}" style="width:${bw}px;"></div><span class="bar-val">${r.share}</span></div>`
+      : `<span style="font-size:11px;color:#444458;">Not tracked<br><span style="font-size:10px;">(open-weight)</span></span>`;
+
+    const userCell = r.usub
+      ? `<span class="u-num">${r.users}</span><span class="u-sub">${r.usub}</span>`
+      : `<span class="u-num">${r.users}</span>`;
+
+    tr.innerHTML = `
+      ${brandCell}
+      <td><span class="model-name">${r.model}</span></td>
+      <td><span class="year-tag">${r.year}</span></td>
+      <td><span class="hl">${r.hl}</span></td>
+      <td>${barCell}</td>
+      <td>${userCell}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+build('all');
+
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    build(btn.dataset.f);
+  });
+});
+</script>
+</body>
+</html>
